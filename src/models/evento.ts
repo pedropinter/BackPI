@@ -20,6 +20,10 @@ export class Evento{
     @Column({type: "enum", enum: ['Basquete', 'Futebol', 'Volei','Handebol'], nullable: false})
     modalidade: string //USAR CHECK
 
+    
+   @ManyToOne(() => User, (user) => user.id)
+  userId:User;
+
     //IDCLUBE E IDUSUARIO
 
     constructor(tipo: string,nome: string,desc: string ,cep: number, modalidade: string){
