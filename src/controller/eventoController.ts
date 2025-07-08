@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../db/data-source";
-import { Evento } from "../models/Evento";
+import { Evento } from "../models/evento";
 
 const eventoRepository = AppDataSource.getRepository(Evento);
 
@@ -12,14 +12,14 @@ export class EventoController {
     }
 
     async create(req: Request, res: Response) {
-        const { nome, cep, modalidade } = req.body;
+        const { tipo, nome, desc, cep, modalidade } = req.body;
 
         if (!nome || !cep || !modalidade) {
             res.status(400).json({ message: "Todos os campos são necessários!" })
             return
         }
 
-        const Eventoo = new Evento(nome, cep, modalidade)
+        const Eventoo = new Evento(tipo,  nome, desc, cep, modalidade)
         const newEvento = await eventoRepository.create(Eventoo)
         await eventoRepository.save(newEvento)
 
